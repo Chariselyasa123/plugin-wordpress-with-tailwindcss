@@ -14,7 +14,7 @@
 // Checking Test Env and Direct Access File
 
 // Enqueue Script
-add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
+add_action( 'admin_enqueue_scripts', 'enqueue_scripts' );
 
 function enqueue_scripts() {
 	wp_enqueue_style( 'compiled_tailwind', plugin_dir_url( __FILE__ ) . "css/compiled.css", array(), '1.0.0' );
@@ -32,6 +32,23 @@ function testing_tailwind_css() {
 	<?php
 
 	return ob_get_clean();
+}
+
+add_action( 'admin_menu', 'register_admin_menu', 1 );
+function register_admin_menu() {
+// Menu lwcommerce in WP-ADMIN
+	add_menu_page(
+		"Test Tailwind",
+		"Test Tailwind",
+		'manage_options',
+		"test-tailwind",
+		'admin_menu_callback',
+		3
+	);
+}
+
+function admin_menu_callback() {
+	include_once "admin-menu.php";
 }
 
 
